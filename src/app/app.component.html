@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Page Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//fonts.googleapis.com/css?family=Aclonica"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>EATSY</h1>
+    </div>
+
+    <div class="form-head">
+      <H4>RESTAURANT MENU FORM</H4>
+    </div>
+
+    <!-- <div class="container">
+      <form></form>
+    </div> -->
+
+    <form [formGroup]="productForm">
+      <div class="row">
+        <div class="col-25">
+          <label style="font-size: 25px">Restaurant name </label>
+        </div>
+        <div class="col-75">
+          <input
+            type="text"
+            id="rname"
+            [formControlName]="'restaurant_name'"
+            placeholder="Restaurant name.."
+          />
+        </div>
+      </div>
+      <div formArrayName="sections">
+        <div *ngFor="let section of sections().controls; let secIndex = index">
+          <div class="container" [formGroupName]="secIndex">
+            <div class="col-25" for="name">
+              <label style="font-size: 20px">Section name </label>
+            </div>
+
+            <div class="col-75">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                formControlName="sectionName"
+                class="form-control"
+                placeholder="Enter new section"
+              />
+            </div>
+
+            <button
+              class="btn btn-remove-section"
+              (click)="removeSection(secIndex)"
+            >
+              Remove section
+            </button>
+
+            <div formArrayName="items">
+              <div
+                *ngFor="
+                  let item of sectionItems(secIndex).controls;
+                  let itemIndex = index
+                "
+              >
+                <div [formGroupName]="itemIndex">
+                  <ul class="nav">
+                    <li id="a">
+                      <input
+                        type="text"
+                        formControlName="item"
+                        class="form-control"
+                        placeholder="Item name"
+                      />
+                    </li>
+                    <li id="b">
+                      <input
+                        type="text"
+                        formControlName="price"
+                        class="form-control"
+                        placeholder="Price"
+                      />
+                    </li>
+                    <li id="c">
+                      <input
+                        type="text"
+                        formControlName="description"
+                        class="form-control"
+                        placeholder="Item description"
+                      />
+                    </li>
+                  </ul>
+
+                  <button
+                    type="button"
+                    class="btn btn-remove-item"
+                    (click)="removeSectionItems(secIndex, itemIndex)"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-add-item"
+              (click)="addSectionItems(secIndex)"
+            >
+              +
+            </button>
+            <hr />
+          </div>
+        </div>
+        <div class="wrapper">
+          <button
+            type="button"
+            class="button"
+            style="font-size: 20px"
+            (click)="addSection()"
+          >
+            Add Section
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="wrapper">
+      <button type="submit" class="button" (click)="onSubmitFrom()">
+        Submit
+      </button>
+    </div>
+  </body>
+</html>
